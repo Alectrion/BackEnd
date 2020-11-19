@@ -59,4 +59,8 @@ public class PersonaService{
     	return persona.getRoles();
     }
     
+    
+    public void deleteById(Integer user_id) {
+        userRepository.deleteById(user_id);
+    }
 }

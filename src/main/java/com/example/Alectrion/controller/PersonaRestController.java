@@ -7,6 +7,8 @@ import com.example.Alectrion.model.Persona;
 import com.example.Alectrion.model.Role;
 import com.example.Alectrion.pojo.LoginUserPOJO;
 import com.example.Alectrion.pojo.RegisterUserPOJO;
+import com.sun.el.stream.Optional;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -70,9 +72,31 @@ public class PersonaRestController {
 		return new ResponseEntity<>( HttpStatus.CREATED );
 	}
 
+	@PutMapping( value = { "/editar/{Id}" }, consumes = MediaType.APPLICATION_JSON_VALUE )
+	public ResponseEntity<Void> updateUser(@PathVariable Integer Id,@RequestBody RegisterUserPOJO userPOJO ){
+		Persona existingUser = userService.findByUsername( userPOJO.getUsername( ) );
+		
+		if( existingUser != null || !userService.isRightUser( userPOJO ) ){
+			return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
+		}
+		existingUser.setNames(userPOJO.getNames());
+		existingUser.setEmail( userPOJO.getEmail());
+		existingUser.setUsername( userPOJO.getUsername());
+		userService.save(existingUser);
+		return new ResponseEntity<>( HttpStatus.OK );
+	}
+	
+	
+	@DeleteMapping( value = { "/delete/{id}" }, consumes = MediaType.APPLICATION_JSON_VALUE )
+	public ResponseEntity<Void> deleteEstablishment( @PathVariable Integer id){
+		userService.deleteById(id);
+		return ResponseEntity.ok(null);
+    }
+
 	@RequestMapping("/cliente")
 	public String cliente(){
 		return "pagina de usuario";
+		
 	}
 
 	@RequestMapping("/propietario")

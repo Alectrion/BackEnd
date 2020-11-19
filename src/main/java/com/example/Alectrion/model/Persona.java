@@ -43,6 +43,7 @@ public class Persona implements Serializable{
     ,inverseJoinColumns = { @JoinColumn( name = "role_id" ) })
 
     private List<Role> roles;
+    
  
 
     /**

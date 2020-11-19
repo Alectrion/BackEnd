@@ -43,4 +43,8 @@ public class EstablishmentService {
         return estRepository.findAll();
     }
     
+    public void deleteById(Integer est_id) {
+        estRepository.deleteById(est_id);
+    }
+    
 }
