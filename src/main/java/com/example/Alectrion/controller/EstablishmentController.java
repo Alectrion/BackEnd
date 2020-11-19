@@ -38,10 +38,7 @@ public class EstablishmentController {
 
     @PostMapping( value = { "/propietario/nuevo_establecimiento" } )
     public ResponseEntity<Void> registerNewEstablishment(@RequestBody RegistrerEstablishmentPOJO estPojo ){
-        System.out.println(estPojo.getNombreEstablecimiento());
-        System.out.println(estPojo.getDir());
-        System.out.println(estPojo.getTel());
-        System.out.println(estPojo.getCupoMax());
+        
 
 
         Establishment existingEstablishment = establishmentService.findByEstName(estPojo.getNombreEstablecimiento());
@@ -52,7 +49,8 @@ public class EstablishmentController {
 
 
         if( existingEstablishment != null || !establishmentService.isRightEstablishment( estPojo ) ){
-            return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
+        	return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
+            
         }
 
         Establishment newEstablishment = new Establishment( );

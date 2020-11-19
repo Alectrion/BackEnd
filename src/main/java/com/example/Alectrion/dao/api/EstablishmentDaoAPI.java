@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EstablishmentDaoAPI extends JpaRepository<Establishment, Integer> {
 
-    Establishment findByEstName(String nombreEstablecimiento);
+    Establishment findByEstName(String estName);
 }
