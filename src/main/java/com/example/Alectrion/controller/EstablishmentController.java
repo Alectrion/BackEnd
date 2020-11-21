@@ -38,15 +38,10 @@ public class EstablishmentController {
 
     @PostMapping( value = { "/propietario/nuevo_establecimiento" } )
     public ResponseEntity<Void> registerNewEstablishment(@RequestBody RegistrerEstablishmentPOJO estPojo ){
-        
-
 
         Establishment existingEstablishment = establishmentService.findByEstName(estPojo.getNombreEstablecimiento());
         String username = SecurityContextHolder.getContext( ).getAuthentication( ).getName();
-        System.out.println(username);
         Persona existingUser = personaService.findByUsername( username );
-        System.out.println(existingUser.getId());
-
 
         if( existingEstablishment != null || !establishmentService.isRightEstablishment( estPojo ) ){
         	return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
@@ -57,7 +52,7 @@ public class EstablishmentController {
         newEstablishment.setEstName( estPojo.getNombreEstablecimiento().toUpperCase( ) );
         newEstablishment.setDir( estPojo.getDir().toUpperCase() );
         newEstablishment.setTel( estPojo.getTel().toLowerCase( ) );
-        newEstablishment.setId_propietario(existingUser.getId());
+        newEstablishment.setId_propietario(existingUser);
         newEstablishment.setTipoEstablecimiento(estPojo.getTipoEstablecimiento());
         newEstablishment.setCupoMax(estPojo.getCupoMax());
         establishmentService.save( newEstablishment );
@@ -75,7 +70,10 @@ public class EstablishmentController {
     @GetMapping( value = { "/Establecimientos" } )
     public List<Establishment> getAll( ){ return establishmentService.getAllEstablishments();
     }
-    
+
+
+
+
     @PutMapping( value = { "/establecimiento/editar/{Id}" }, consumes = MediaType.APPLICATION_JSON_VALUE )
 	public ResponseEntity<Void> updateEstablishment(@PathVariable Integer Id,@RequestBody RegistrerEstablishmentPOJO estPojo  ){
     	Establishment existingEstablishment = establishmentService.findByEstName(estPojo.getNombreEstablecimiento());

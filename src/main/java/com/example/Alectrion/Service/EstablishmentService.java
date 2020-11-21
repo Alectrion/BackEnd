@@ -19,8 +19,8 @@ public class EstablishmentService {
         this.estRepository = estRepository;
     }
 
-    public  Establishment findByEstName(String nombreEstablecimiento){
-        return estRepository.findByEstName(nombreEstablecimiento);
+    public  Establishment findByEstName(String estName ){
+        return estRepository.findByEstName(estName);
     }
 
     public void save( Establishment establishment ){

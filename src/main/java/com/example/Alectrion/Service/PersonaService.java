@@ -1,6 +1,7 @@
 package com.example.Alectrion.Service;
 
 import com.example.Alectrion.dao.api.PersonaDaoAPI;
+import com.example.Alectrion.model.Establishment;
 import com.example.Alectrion.model.Persona;
 import com.example.Alectrion.model.Role;
 import com.example.Alectrion.pojo.RegisterUserPOJO;
@@ -57,6 +58,12 @@ public class PersonaService{
     	String username = SecurityContextHolder.getContext( ).getAuthentication( ).getName( );
     	Persona persona = userRepository.findByUsername(username);
     	return persona.getRoles();
+    }
+
+    public List<Establishment> getEstablishments(){
+        String username = SecurityContextHolder.getContext( ).getAuthentication( ).getName( );
+        Persona persona = userRepository.findByUsername(username);
+        return persona.getEstablishments();
     }
     
     

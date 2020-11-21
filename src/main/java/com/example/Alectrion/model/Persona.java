@@ -44,7 +44,16 @@ public class Persona implements Serializable{
 
     private List<Role> roles;
     
- 
+    @OneToMany(mappedBy = "id_propietario")
+    private List<Establishment> establishments;
+
+    public List<Establishment> getEstablishments() {
+        return establishments;
+    }
+
+    public void setEstablishments(List<Establishment> establishments) {
+        this.establishments = establishments;
+    }
 
     /**
      * Constructors
