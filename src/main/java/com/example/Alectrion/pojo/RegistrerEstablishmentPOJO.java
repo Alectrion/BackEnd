@@ -2,7 +2,7 @@ package com.example.Alectrion.pojo;
 
 public class RegistrerEstablishmentPOJO {
 
-    private String nombreEstablecimiento;
+    private String estName;
     private String dir;
     private String tel;
     private String tipoEstablecimiento;
@@ -10,12 +10,12 @@ public class RegistrerEstablishmentPOJO {
 
 
 
-    public String getNombreEstablecimiento() {
-        return nombreEstablecimiento;
+    public String getEstName() {
+        return estName;
     }
 
-    public void setNombreEstablecimiento(String nombreEstablecimiento) {
-        this.nombreEstablecimiento = nombreEstablecimiento;
+    public void setEstName(String estName) {
+        this.estName = estName;
     }
 
     public String getDir() {
@@ -50,6 +50,5 @@ public class RegistrerEstablishmentPOJO {
     public void setCupoMax(int cupoMax) {
         this.cupoMax = cupoMax;
     }
-
 
 }

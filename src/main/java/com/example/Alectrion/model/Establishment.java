@@ -1,5 +1,7 @@
 package com.example.Alectrion.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -21,30 +23,31 @@ public class Establishment {
     private int cupoMax;
     @Column(name = "tipo")
     private String tipoEstablecimiento;
-    @Column(name = "propietario")
-    private Integer id_propietario;
 
-    public Establishment(){}
 
-    public Integer getId_propietario() {
+    public Persona getId_propietario() {
         return id_propietario;
     }
 
-    public void setId_propietario(Integer id_propietario) {
+    public void setId_propietario(Persona id_propietario) {
         this.id_propietario = id_propietario;
     }
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Persona id_propietario;
+
+    public Establishment(){}
 
 
 /*
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private Propietario propietario;
-
 public Establishment(Propietario propietario){
     this.propietario = propietario;
 }
 */
-
 
     public Integer getId() {
         return id;
@@ -97,10 +100,8 @@ public Establishment(Propietario propietario){
     public Propietario getPropietario() {
         return propietario;
     }
-
     public void setPropietario(Propietario propietario) {
         this.propietario = propietario;
     }
-
 */
 }

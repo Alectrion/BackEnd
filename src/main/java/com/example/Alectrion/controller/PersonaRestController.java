@@ -72,26 +72,23 @@ public class PersonaRestController {
 		return new ResponseEntity<>( HttpStatus.CREATED );
 	}
 
-	@PutMapping( value = { "/editar/{Id}" }, consumes = MediaType.APPLICATION_JSON_VALUE )
+	@PutMapping( value = { "/usuario/editar/{Id}" }, consumes = MediaType.APPLICATION_JSON_VALUE )
 	public ResponseEntity<Void> updateUser(@PathVariable Integer Id,@RequestBody RegisterUserPOJO userPOJO ){
 		Persona existingUser = userService.findByUsername( userPOJO.getUsername( ) );
-		
-		if( existingUser != null || !userService.isRightUser( userPOJO ) ){
-			return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
-		}
+
 		existingUser.setNames(userPOJO.getNames());
 		existingUser.setEmail( userPOJO.getEmail());
 		existingUser.setUsername( userPOJO.getUsername());
 		userService.save(existingUser);
 		return new ResponseEntity<>( HttpStatus.OK );
 	}
-	
-	
-	@DeleteMapping( value = { "/delete/{id}" }, consumes = MediaType.APPLICATION_JSON_VALUE )
+
+
+	@DeleteMapping( value = { "/usuario/delete/{id}" }, consumes = MediaType.APPLICATION_JSON_VALUE )
 	public ResponseEntity<Void> deleteEstablishment( @PathVariable Integer id){
 		userService.deleteById(id);
 		return ResponseEntity.ok(null);
-    }
+	}
 
 	@RequestMapping("/cliente")
 	public String cliente(){
@@ -120,5 +117,9 @@ public class PersonaRestController {
 	@GetMapping( value = { "/rol" } )
     public List<Role> getAllRole(){ return userService.getAllRole( );
     }
+
+	@GetMapping( value = {"/propietario/establecimientos"})
+	public List<Establishment> getEstablishments( ){ return userService.getEstablishments();
+	}
 
 }

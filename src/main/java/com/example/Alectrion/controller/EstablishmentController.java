@@ -38,15 +38,10 @@ public class EstablishmentController {
 
     @PostMapping( value = { "/propietario/nuevo_establecimiento" } )
     public ResponseEntity<Void> registerNewEstablishment(@RequestBody RegistrerEstablishmentPOJO estPojo ){
-        
 
-
-        Establishment existingEstablishment = establishmentService.findByEstName(estPojo.getNombreEstablecimiento());
+        Establishment existingEstablishment = establishmentService.findByEstName(estPojo.getEstName());
         String username = SecurityContextHolder.getContext( ).getAuthentication( ).getName();
-        System.out.println(username);
         Persona existingUser = personaService.findByUsername( username );
-        System.out.println(existingUser.getId());
-
 
         if( existingEstablishment != null || !establishmentService.isRightEstablishment( estPojo ) ){
         	return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
@@ -54,10 +49,10 @@ public class EstablishmentController {
         }
 
         Establishment newEstablishment = new Establishment( );
-        newEstablishment.setEstName( estPojo.getNombreEstablecimiento().toUpperCase( ) );
+        newEstablishment.setEstName( estPojo.getEstName().toUpperCase( ) );
         newEstablishment.setDir( estPojo.getDir().toUpperCase() );
         newEstablishment.setTel( estPojo.getTel().toLowerCase( ) );
-        newEstablishment.setId_propietario(existingUser.getId());
+        newEstablishment.setId_propietario(existingUser);
         newEstablishment.setTipoEstablecimiento(estPojo.getTipoEstablecimiento());
         newEstablishment.setCupoMax(estPojo.getCupoMax());
         establishmentService.save( newEstablishment );
@@ -75,12 +70,15 @@ public class EstablishmentController {
     @GetMapping( value = { "/Establecimientos" } )
     public List<Establishment> getAll( ){ return establishmentService.getAllEstablishments();
     }
-    
-    @PutMapping( value = { "/establecimiento/editar/{Id}" }, consumes = MediaType.APPLICATION_JSON_VALUE )
+
+
+
+
+    @PutMapping( value = { "/propietario/establecimiento/editar/{Id}" }, consumes = MediaType.APPLICATION_JSON_VALUE )
 	public ResponseEntity<Void> updateEstablishment(@PathVariable Integer Id,@RequestBody RegistrerEstablishmentPOJO estPojo  ){
-    	Establishment existingEstablishment = establishmentService.findByEstName(estPojo.getNombreEstablecimiento());
+    	Establishment existingEstablishment = establishmentService.findByEstName(estPojo.getEstName());
     	
-    	existingEstablishment.setEstName( estPojo.getNombreEstablecimiento());
+    	existingEstablishment.setEstName( estPojo.getEstName());
     	existingEstablishment.setDir( estPojo.getDir());
     	existingEstablishment.setTel( estPojo.getTel());
     	existingEstablishment.setTipoEstablecimiento(estPojo.getTipoEstablecimiento());
