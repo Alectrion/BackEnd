@@ -2,8 +2,6 @@ package com.example.Alectrion.Service;
 
 import com.example.Alectrion.dao.api.EstablishmentDaoAPI;
 import com.example.Alectrion.model.Establishment;
-import com.example.Alectrion.model.Persona;
-import com.example.Alectrion.model.Role;
 import com.example.Alectrion.pojo.RegistrerEstablishmentPOJO;
 
 import java.util.List;
@@ -29,10 +27,10 @@ public class EstablishmentService {
 
 
     public boolean isRightEstablishment( RegistrerEstablishmentPOJO est ){
-        boolean correctness = est.getNombreEstablecimiento() != null && est.getDir() != null && est.getTel() != null;
+        boolean correctness = est.getEstName() != null && est.getDir() != null && est.getTel() != null;
 
         if( correctness ){
-            correctness = !est.getNombreEstablecimiento().trim( ).isEmpty( )
+            correctness = !est.getEstName().trim( ).isEmpty( )
                     && !est.getTel().trim( ).isEmpty( )
                     && !est.getDir().trim( ).isEmpty( );
         }

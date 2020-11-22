@@ -40,17 +40,14 @@ public class Establishment {
     public Establishment(){}
 
 
-
 /*
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private Propietario propietario;
-
 public Establishment(Propietario propietario){
     this.propietario = propietario;
 }
 */
-
 
     public Integer getId() {
         return id;
@@ -103,10 +100,8 @@ public Establishment(Propietario propietario){
     public Propietario getPropietario() {
         return propietario;
     }
-
     public void setPropietario(Propietario propietario) {
         this.propietario = propietario;
     }
-
 */
 }

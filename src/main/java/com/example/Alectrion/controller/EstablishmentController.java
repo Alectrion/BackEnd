@@ -39,7 +39,7 @@ public class EstablishmentController {
     @PostMapping( value = { "/propietario/nuevo_establecimiento" } )
     public ResponseEntity<Void> registerNewEstablishment(@RequestBody RegistrerEstablishmentPOJO estPojo ){
 
-        Establishment existingEstablishment = establishmentService.findByEstName(estPojo.getNombreEstablecimiento());
+        Establishment existingEstablishment = establishmentService.findByEstName(estPojo.getEstName());
         String username = SecurityContextHolder.getContext( ).getAuthentication( ).getName();
         Persona existingUser = personaService.findByUsername( username );
 
@@ -49,7 +49,7 @@ public class EstablishmentController {
         }
 
         Establishment newEstablishment = new Establishment( );
-        newEstablishment.setEstName( estPojo.getNombreEstablecimiento().toUpperCase( ) );
+        newEstablishment.setEstName( estPojo.getEstName().toUpperCase( ) );
         newEstablishment.setDir( estPojo.getDir().toUpperCase() );
         newEstablishment.setTel( estPojo.getTel().toLowerCase( ) );
         newEstablishment.setId_propietario(existingUser);
@@ -74,11 +74,11 @@ public class EstablishmentController {
 
 
 
-    @PutMapping( value = { "/establecimiento/editar/{Id}" }, consumes = MediaType.APPLICATION_JSON_VALUE )
+    @PutMapping( value = { "/propietario/establecimiento/editar/{Id}" }, consumes = MediaType.APPLICATION_JSON_VALUE )
 	public ResponseEntity<Void> updateEstablishment(@PathVariable Integer Id,@RequestBody RegistrerEstablishmentPOJO estPojo  ){
-    	Establishment existingEstablishment = establishmentService.findByEstName(estPojo.getNombreEstablecimiento());
+    	Establishment existingEstablishment = establishmentService.findByEstName(estPojo.getEstName());
     	
-    	existingEstablishment.setEstName( estPojo.getNombreEstablecimiento());
+    	existingEstablishment.setEstName( estPojo.getEstName());
     	existingEstablishment.setDir( estPojo.getDir());
     	existingEstablishment.setTel( estPojo.getTel());
     	existingEstablishment.setTipoEstablecimiento(estPojo.getTipoEstablecimiento());

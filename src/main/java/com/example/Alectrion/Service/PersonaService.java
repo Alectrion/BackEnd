@@ -20,9 +20,6 @@ public class PersonaService{
         this.userRepository = userRepository;
     }
 
-
-
-
     public Persona findByUsername(String username ){
         return userRepository.findByUsername( username );
     }
