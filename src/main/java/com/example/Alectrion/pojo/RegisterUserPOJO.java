@@ -1,11 +1,16 @@
 package com.example.Alectrion.pojo;
 
+import java.util.List;
+
+import com.example.Alectrion.model.Establishment;
+
 public class RegisterUserPOJO{
 
     private String names;
     private String password;
     private String eMail;
     private String username;
+    private List<Establishment> favorites;
 
 
 
@@ -40,5 +45,16 @@ public class RegisterUserPOJO{
     public void setUsername( String username ){
         this.username = username;
     }
+
+	public List<Establishment> getFavorites() {
+		return favorites;
+	}
+
+	public void setFavorites(List<Establishment> favorites) {
+		this.favorites = favorites;
+	}
+    
+
+    
 }
 

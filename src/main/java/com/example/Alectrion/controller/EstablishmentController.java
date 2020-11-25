@@ -55,6 +55,7 @@ public class EstablishmentController {
         newEstablishment.setId_propietario(existingUser);
         newEstablishment.setTipoEstablecimiento(estPojo.getTipoEstablecimiento());
         newEstablishment.setCupoMax(estPojo.getCupoMax());
+        newEstablishment.setMuro(estPojo.getMuro());
         establishmentService.save( newEstablishment );
 
 
@@ -83,6 +84,7 @@ public class EstablishmentController {
     	existingEstablishment.setTel( estPojo.getTel());
     	existingEstablishment.setTipoEstablecimiento(estPojo.getTipoEstablecimiento());
     	existingEstablishment.setCupoMax(estPojo.getCupoMax());
+    	existingEstablishment.setMuro(estPojo.getMuro());
     	establishmentService.save(existingEstablishment);
     	return new ResponseEntity<>( HttpStatus.OK );
 	}

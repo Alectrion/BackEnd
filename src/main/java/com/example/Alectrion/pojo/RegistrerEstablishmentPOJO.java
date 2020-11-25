@@ -6,6 +6,7 @@ public class RegistrerEstablishmentPOJO {
     private String dir;
     private String tel;
     private String tipoEstablecimiento;
+    private String muro;
     private int cupoMax;
 
 
@@ -42,7 +43,6 @@ public class RegistrerEstablishmentPOJO {
         this.tipoEstablecimiento = tipoEstablecimiento;
     }
 
-
      public int getCupoMax() {
         return cupoMax;
     }
@@ -51,4 +51,12 @@ public class RegistrerEstablishmentPOJO {
         this.cupoMax = cupoMax;
     }
 
+	public String getMuro() {
+		return muro;
+	}
+
+	public void setMuro(String muro) {
+		this.muro = muro;
+	}
+    
 }
