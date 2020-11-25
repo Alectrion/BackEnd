@@ -4,40 +4,44 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class Reserva implements Serializable {
+public class Reserve implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
 
 
     @EmbeddedId
-    private ReservePK favoritePK;
+    private ReservePK reservePK;
 
 
 
-    public Favorites( ){
-        favoritePK = new ReservePK( );
+    public Reserve( ){
+        reservePK = new ReservePK( );
     }
 
-    public Favorites(Persona cliente, Establishment favorito){
-        favoritePK = new Favorites.FavoritePK(cliente, favorito);
+    public Reserve(Persona cliente, Establishment favorito, String hora){
+        reservePK = new ReservePK(cliente, favorito, hora);
     }
 
     Persona getUser( ){
-        return favoritePK.getPersona( );
+        return reservePK.getPersona( );
     }
 
     void setUser( Persona persona ){
-        favoritePK.setPersona( persona );
+        reservePK.setPersona( persona );
     }
 
     Establishment getEstablishment( ){
-        return favoritePK.getEstablishment();
+        return reservePK.getEstablishment();
     }
 
     void setEstablishment( Establishment establishment ){
-        favoritePK.setEstablishment( establishment );
+        reservePK.setEstablishment( establishment );
     }
+
+    String getHora(){ return reservePK.getHora();}
+
+    void setHora(String hora){ reservePK.setHora(hora); }
 
 
     @Override
@@ -73,14 +77,15 @@ public class Reserva implements Serializable {
         @JoinColumn( name = "est_id")
         private Establishment establishment;
 
+        @Column
+        private String hora;
 
+        public ReservePK( ){ }
 
-        public FavoritePK( ){ }
-
-        public FavoritePK( Persona user, Establishment establishment ){
+        public ReservePK( Persona user, Establishment establishment, String hora ){
             this.persona = user;
-
             this.establishment = establishment;
+            this.hora = hora;
         }
 
 
@@ -98,6 +103,14 @@ public class Reserva implements Serializable {
 
         public void setEstablishment( Establishment establishment ){
             this.establishment = establishment;
+        }
+
+        public String getHora() {
+            return hora;
+        }
+
+        public void setHora(String hora) {
+            this.hora = hora;
         }
     }
 }

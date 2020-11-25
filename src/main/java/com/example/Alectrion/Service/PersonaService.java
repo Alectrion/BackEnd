@@ -10,6 +10,7 @@ import com.example.Alectrion.model.Role;
 import com.example.Alectrion.pojo.RegisterUserPOJO;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,12 +22,12 @@ public class PersonaService{
 
     private final FavoriteDaoAPI favoriteDaoAPI;
 
-
+    private final EstablishmentDaoAPI establishmentDaoAPI;
 
     public PersonaService( PersonaDaoAPI userRepository, FavoriteDaoAPI favoriteDaoAPI, EstablishmentDaoAPI establishmentDaoAPI ){
         this.userRepository = userRepository;
         this.favoriteDaoAPI = favoriteDaoAPI;
-
+        this.establishmentDaoAPI = establishmentDaoAPI;
     }
 
     public Persona findByUsername(String username ){
@@ -39,6 +40,16 @@ public class PersonaService{
 
     public void save( Persona persona ){
         userRepository.save( persona );
+    }
+
+    public List<Establishment> findFavorites(int id){
+        List<Favorites> favorites = favoriteDaoAPI.findByFavoritePK_Persona_Id(id);
+        List<Establishment> temp = new ArrayList<>();
+        for ( Favorites f : favorites
+             ) {
+            temp.add(establishmentDaoAPI.findById(f.getIdEstablishment()));
+        }
+        return temp;
     }
 
     public void saveFavorite( Favorites favorite){ this.favoriteDaoAPI.save( favorite ); }
@@ -55,6 +66,8 @@ public class PersonaService{
         }
         return correctness;
     }
+
+    public void deleteFavorite(Favorites favorite){ this.favoriteDaoAPI.delete(favorite);}
     
     public Persona getPersona( ){
     	String username = SecurityContextHolder.getContext( ).getAuthentication( ).getName( );

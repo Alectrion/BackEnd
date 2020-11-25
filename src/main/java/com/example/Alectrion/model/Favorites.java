@@ -40,6 +40,10 @@ public class Favorites implements Serializable {
         favoritePK.setEstablishment( establishment );
     }
 
+    public int getIdPersona(){ return favoritePK.getPersona().getId();}
+
+    public int getIdEstablishment(){ return favoritePK.getEstablishment().getId();}
+
 
     @Override
     public boolean equals( Object object ){
@@ -60,7 +64,7 @@ public class Favorites implements Serializable {
 
 
     @Embeddable
-    private static class FavoritePK implements Serializable{
+    public static class FavoritePK implements Serializable{
 
         private static final long serialVersionUID = 1L;
 

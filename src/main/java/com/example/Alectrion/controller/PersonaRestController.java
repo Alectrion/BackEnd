@@ -98,6 +98,22 @@ public class PersonaRestController {
 		return new ResponseEntity<>( HttpStatus.OK );
 	}
 
+	@DeleteMapping(value = { "/cliente/establecimientos/qfavoritos"})
+	public ResponseEntity<Void> qFavorite( @RequestBody AddFavoritePOJO addPOJO ){
+
+		Persona existingUser = userService.findById( addPOJO.getUserID() );
+		Establishment existingEstablishment = establishmentService.findByEstId( addPOJO.getEstID());
+		Favorites favorite = new Favorites( existingUser, existingEstablishment);
+		userService.deleteFavorite( favorite );
+
+		return new ResponseEntity<>( HttpStatus.OK );
+	}
+
+	@GetMapping( value = { "/cliente/establecimientos/misfavoritos/{id}"} )
+		public List<Establishment> getFavorites( @PathVariable Integer id){
+		List<Establishment> temp = userService.findFavorites(id);
+		return temp;
+	}
 
 	@DeleteMapping( value = { "/usuario/delete/{id}" }, consumes = MediaType.APPLICATION_JSON_VALUE )
 	public ResponseEntity<Void> deleteEstablishment( @PathVariable Integer id){
