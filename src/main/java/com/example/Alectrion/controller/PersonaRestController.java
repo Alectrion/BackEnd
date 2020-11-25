@@ -118,7 +118,7 @@ public class PersonaRestController {
     public List<Role> getAllRole(){ return userService.getAllRole( );
     }
 
-	@GetMapping( value = {"/propietario/establecimientos"})
+	@GetMapping( value = {"/propietario/establecimiento"})
 	public List<Establishment> getEstablishments( ){ return userService.getEstablishments();
 	}
 

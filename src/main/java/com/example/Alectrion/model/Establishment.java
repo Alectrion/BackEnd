@@ -21,6 +21,8 @@ public class Establishment {
     private String tel;
     @Column(name = "cupo_max")
     private int cupoMax;
+    @Column(name = "muro")
+    private String muro;
     @Column(name = "tipo")
     private String tipoEstablecimiento;
 
@@ -96,12 +98,13 @@ public Establishment(Propietario propietario){
     public void setTipoEstablecimiento(String tipoEstablecimiento) {
         this.tipoEstablecimiento = tipoEstablecimiento;
     }
-/*
-    public Propietario getPropietario() {
-        return propietario;
-    }
-    public void setPropietario(Propietario propietario) {
-        this.propietario = propietario;
-    }
-*/
+
+	public String getMuro() {
+		return muro;
+	}
+
+	public void setMuro(String muro) {
+		this.muro = muro;
+	}
+    
 }

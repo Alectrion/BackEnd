@@ -35,6 +35,7 @@ public class Persona implements Serializable{
     private String username;
 
     private String eMail;
+    
 
     //bi-directional many-to-many association to Role
     @JsonIgnore
@@ -112,8 +113,10 @@ public class Persona implements Serializable{
     public String getEmail(){ return this.eMail;}
 
     public void setEmail(String eMail){ this.eMail = eMail;}
+    
 
-    /**
+
+	/**
      * Methods
      */
 
