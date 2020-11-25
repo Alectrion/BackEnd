@@ -25,7 +25,10 @@ public class Establishment {
     private String muro;
     @Column(name = "tipo")
     private String tipoEstablecimiento;
-
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Persona id_propietario;
 
     public Persona getId_propietario() {
         return id_propietario;
@@ -34,10 +37,7 @@ public class Establishment {
     public void setId_propietario(Persona id_propietario) {
         this.id_propietario = id_propietario;
     }
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private Persona id_propietario;
+
 
     public Establishment(){}
 

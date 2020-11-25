@@ -21,6 +21,10 @@ public class EstablishmentService {
         return estRepository.findByEstName(estName);
     }
 
+    public Establishment findByEstId(int estId){
+        return estRepository.findById(estId);
+    }
+
     public void save( Establishment establishment ){
         estRepository.save( establishment );
     }

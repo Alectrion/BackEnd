@@ -2,16 +2,10 @@ package com.example.Alectrion.controller;
 
 import com.example.Alectrion.Service.EstablishmentService;
 import com.example.Alectrion.Service.PersonaService;
-import com.example.Alectrion.dao.api.EstablishmentDaoAPI;
 import com.example.Alectrion.model.Establishment;
 import com.example.Alectrion.model.Persona;
-import com.example.Alectrion.model.Role;
-import com.example.Alectrion.pojo.LoginUserPOJO;
-import com.example.Alectrion.pojo.RegisterUserPOJO;
 import com.example.Alectrion.pojo.RegistrerEstablishmentPOJO;
-
 import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +23,7 @@ public class EstablishmentController {
 
     private EstablishmentService establishmentService;
 
+
     private PersonaService personaService;
 
     public EstablishmentController(EstablishmentService establishmentService, PersonaService personaService) {
@@ -45,19 +40,17 @@ public class EstablishmentController {
 
         if( existingEstablishment != null || !establishmentService.isRightEstablishment( estPojo ) ){
         	return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
-            
         }
 
         Establishment newEstablishment = new Establishment( );
-        newEstablishment.setEstName( estPojo.getEstName().toUpperCase( ) );
-        newEstablishment.setDir( estPojo.getDir().toUpperCase() );
+        newEstablishment.setEstName( estPojo.getEstName() );
+        newEstablishment.setDir( estPojo.getDir() );
         newEstablishment.setTel( estPojo.getTel().toLowerCase( ) );
         newEstablishment.setId_propietario(existingUser);
         newEstablishment.setTipoEstablecimiento(estPojo.getTipoEstablecimiento());
         newEstablishment.setCupoMax(estPojo.getCupoMax());
         newEstablishment.setMuro(estPojo.getMuro());
         establishmentService.save( newEstablishment );
-
 
         return new ResponseEntity<>( HttpStatus.CREATED );
     }
@@ -77,7 +70,7 @@ public class EstablishmentController {
 
     @PutMapping( value = { "/propietario/establecimiento/editar/{Id}" }, consumes = MediaType.APPLICATION_JSON_VALUE )
 	public ResponseEntity<Void> updateEstablishment(@PathVariable Integer Id,@RequestBody RegistrerEstablishmentPOJO estPojo  ){
-    	Establishment existingEstablishment = establishmentService.findByEstName(estPojo.getEstName());
+    	Establishment existingEstablishment = establishmentService.findByEstId(Id);
     	
     	existingEstablishment.setEstName( estPojo.getEstName());
     	existingEstablishment.setDir( estPojo.getDir());

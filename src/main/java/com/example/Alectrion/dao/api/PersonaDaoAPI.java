@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PersonaDaoAPI extends JpaRepository<Persona, Integer> {
     Persona findByUsername( String username );
-
+    Persona findById(int id);
 }

@@ -1,10 +1,13 @@
 package com.example.Alectrion.controller;
 
+import com.example.Alectrion.Service.EstablishmentService;
 import com.example.Alectrion.Service.PersonaService;
 import com.example.Alectrion.Service.RoleService;
 import com.example.Alectrion.model.Establishment;
+import com.example.Alectrion.model.Favorites;
 import com.example.Alectrion.model.Persona;
 import com.example.Alectrion.model.Role;
+import com.example.Alectrion.pojo.AddFavoritePOJO;
 import com.example.Alectrion.pojo.LoginUserPOJO;
 import com.example.Alectrion.pojo.RegisterUserPOJO;
 import com.sun.el.stream.Optional;
@@ -29,10 +32,13 @@ public class PersonaRestController {
 
 	private PasswordEncoder passwordEncoder;
 
-	public PersonaRestController(PersonaService userService, RoleService roleService, PasswordEncoder passwordEncoder ){
+	private EstablishmentService establishmentService;
+
+	public PersonaRestController(PersonaService userService, RoleService roleService, PasswordEncoder passwordEncoder,EstablishmentService establishmentService ){
 		this.userService = userService;
 		this.roleService = roleService;
 		this.passwordEncoder = passwordEncoder;
+		this.establishmentService = establishmentService;
 	}
 
 	@PostMapping( value = { "/registro/nuevo-usuario/rol/{roleId}" } )
@@ -40,11 +46,9 @@ public class PersonaRestController {
 		Role role = roleService.findById( roleId );
 		Persona existingUser = userService.findByUsername( userPOJO.getUsername( ) );
 
-
 		if( role == null || existingUser != null || !userService.isRightUser( userPOJO ) ){
 			return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
 		}
-
 
 		Persona newUser = new Persona( );
 		newUser.setNames( userPOJO.getNames( ).toUpperCase( ) );
@@ -80,6 +84,17 @@ public class PersonaRestController {
 		existingUser.setEmail( userPOJO.getEmail());
 		existingUser.setUsername( userPOJO.getUsername());
 		userService.save(existingUser);
+		return new ResponseEntity<>( HttpStatus.OK );
+	}
+
+	@PostMapping(value = { "/cliente/establecimientos/favoritos"})
+	public ResponseEntity<Void> addFavorite( @RequestBody AddFavoritePOJO addPOJO ){
+
+		Persona existingUser = userService.findById( addPOJO.getUserID() );
+		Establishment existingEstablishment = establishmentService.findByEstId( addPOJO.getEstID());
+		Favorites favorite = new Favorites( existingUser, existingEstablishment);
+		userService.saveFavorite( favorite );
+
 		return new ResponseEntity<>( HttpStatus.OK );
 	}
 
