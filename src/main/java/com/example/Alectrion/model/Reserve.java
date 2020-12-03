@@ -63,7 +63,7 @@ public class Reserve implements Serializable {
 
 
     @Embeddable
-    private static class ReservePK implements Serializable{
+    public static class ReservePK implements Serializable{
 
         private static final long serialVersionUID = 1L;
 
@@ -77,7 +77,7 @@ public class Reserve implements Serializable {
         @JoinColumn( name = "est_id")
         private Establishment establishment;
 
-        @Column
+        @Column(name = "hora")
         private String hora;
 
         public ReservePK( ){ }

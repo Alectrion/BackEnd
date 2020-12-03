@@ -3,10 +3,8 @@ package com.example.Alectrion.Service;
 import com.example.Alectrion.dao.api.EstablishmentDaoAPI;
 import com.example.Alectrion.dao.api.FavoriteDaoAPI;
 import com.example.Alectrion.dao.api.PersonaDaoAPI;
-import com.example.Alectrion.model.Establishment;
-import com.example.Alectrion.model.Favorites;
-import com.example.Alectrion.model.Persona;
-import com.example.Alectrion.model.Role;
+import com.example.Alectrion.dao.api.ReserveDaoAPI;
+import com.example.Alectrion.model.*;
 import com.example.Alectrion.pojo.RegisterUserPOJO;
 import org.springframework.stereotype.Service;
 
@@ -24,10 +22,14 @@ public class PersonaService{
 
     private final EstablishmentDaoAPI establishmentDaoAPI;
 
-    public PersonaService( PersonaDaoAPI userRepository, FavoriteDaoAPI favoriteDaoAPI, EstablishmentDaoAPI establishmentDaoAPI ){
+    private final ReserveDaoAPI reserveDaoAPI;
+
+    public PersonaService( PersonaDaoAPI userRepository, FavoriteDaoAPI favoriteDaoAPI,
+                           EstablishmentDaoAPI establishmentDaoAPI, ReserveDaoAPI reserveDaoAPI ){
         this.userRepository = userRepository;
         this.favoriteDaoAPI = favoriteDaoAPI;
         this.establishmentDaoAPI = establishmentDaoAPI;
+        this.reserveDaoAPI = reserveDaoAPI;
     }
 
     public Persona findByUsername(String username ){
@@ -51,6 +53,8 @@ public class PersonaService{
         }
         return temp;
     }
+
+    public void saveReserve(Reserve reserve){ reserveDaoAPI.save( reserve );}
 
     public void saveFavorite( Favorites favorite){ this.favoriteDaoAPI.save( favorite ); }
 

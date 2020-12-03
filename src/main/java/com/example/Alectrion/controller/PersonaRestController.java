@@ -3,13 +3,11 @@ package com.example.Alectrion.controller;
 import com.example.Alectrion.Service.EstablishmentService;
 import com.example.Alectrion.Service.PersonaService;
 import com.example.Alectrion.Service.RoleService;
-import com.example.Alectrion.model.Establishment;
-import com.example.Alectrion.model.Favorites;
-import com.example.Alectrion.model.Persona;
-import com.example.Alectrion.model.Role;
+import com.example.Alectrion.model.*;
 import com.example.Alectrion.pojo.AddFavoritePOJO;
 import com.example.Alectrion.pojo.LoginUserPOJO;
 import com.example.Alectrion.pojo.RegisterUserPOJO;
+import com.example.Alectrion.pojo.ReservePOJO;
 import com.sun.el.stream.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -94,6 +92,18 @@ public class PersonaRestController {
 		Establishment existingEstablishment = establishmentService.findByEstId( addPOJO.getEstID());
 		Favorites favorite = new Favorites( existingUser, existingEstablishment);
 		userService.saveFavorite( favorite );
+
+		return new ResponseEntity<>( HttpStatus.OK );
+	}
+
+	@PostMapping(value = { "/cliente/establecimientos/reservas"})
+	public ResponseEntity<Void> addReserve( @RequestBody ReservePOJO reservePOJO ){
+
+		Persona existingUser = userService.findById( reservePOJO.getUserID() );
+		Establishment existingEstablishment = establishmentService.findByEstId( reservePOJO.getEstID());
+		String hora = reservePOJO.getHorario();
+		Reserve reserve = new Reserve(existingUser, existingEstablishment, hora);
+		userService.saveReserve( reserve );
 
 		return new ResponseEntity<>( HttpStatus.OK );
 	}

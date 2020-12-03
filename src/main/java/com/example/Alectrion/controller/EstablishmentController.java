@@ -4,8 +4,10 @@ import com.example.Alectrion.Service.EstablishmentService;
 import com.example.Alectrion.Service.PersonaService;
 import com.example.Alectrion.model.Establishment;
 import com.example.Alectrion.model.Persona;
+import com.example.Alectrion.pojo.NumberReservesPOJO;
 import com.example.Alectrion.pojo.RegistrerEstablishmentPOJO;
 import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -63,6 +65,12 @@ public class EstablishmentController {
     
     @GetMapping( value = { "/Establecimientos" } )
     public List<Establishment> getAll( ){ return establishmentService.getAllEstablishments();
+    }
+
+    @PostMapping( value = { "/establecimientos/ocupacion"})
+    public int getOcupationEstablishment(@RequestBody NumberReservesPOJO numberReservesPOJO){
+
+        return establishmentService.getScheduleCapacity(numberReservesPOJO.getEstID(), numberReservesPOJO.getHorario());
     }
 
 
