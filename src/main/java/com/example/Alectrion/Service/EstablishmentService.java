@@ -1,7 +1,9 @@
 package com.example.Alectrion.Service;
 
 import com.example.Alectrion.dao.api.EstablishmentDaoAPI;
+import com.example.Alectrion.dao.api.ReserveDaoAPI;
 import com.example.Alectrion.model.Establishment;
+import com.example.Alectrion.model.Reserve;
 import com.example.Alectrion.pojo.RegistrerEstablishmentPOJO;
 
 import java.util.List;
@@ -12,9 +14,11 @@ import org.springframework.stereotype.Service;
 public class EstablishmentService {
 
     private final EstablishmentDaoAPI estRepository;
+    private final ReserveDaoAPI reserveDaoAPI;
 
-    public EstablishmentService(EstablishmentDaoAPI estRepository){
+    public EstablishmentService(EstablishmentDaoAPI estRepository, ReserveDaoAPI reserveDaoAPI){
         this.estRepository = estRepository;
+        this.reserveDaoAPI = reserveDaoAPI;
     }
 
     public  Establishment findByEstName(String estName ){
@@ -27,6 +31,12 @@ public class EstablishmentService {
 
     public void save( Establishment establishment ){
         estRepository.save( establishment );
+    }
+
+    public int getScheduleCapacity(int est_id, String horario){
+        List<Reserve> reserves = reserveDaoAPI.findByReservePK_Establishment_IdAndReservePK_Hora(est_id, horario);
+        int capacity = reserves.size();
+        return capacity;
     }
 
 

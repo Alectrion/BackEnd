@@ -110,7 +110,7 @@ public Establishment(Propietario propietario){
 	public void setMuro(String muro) {
 		this.muro = muro;
 	}
-	
+
 	public String getLatitud() {
 		return latitud;
 	}

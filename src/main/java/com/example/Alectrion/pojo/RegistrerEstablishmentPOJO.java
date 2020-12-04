@@ -60,7 +60,7 @@ public class RegistrerEstablishmentPOJO {
 	public void setMuro(String muro) {
 		this.muro = muro;
 	}
-    
+
 	public String getLatitud() {
 		return latitud;
 	}
@@ -76,4 +76,6 @@ public class RegistrerEstablishmentPOJO {
 	public void setLongitud(String longitud) {
 		this.longitud = longitud;
 	}
+	
+    
 }
