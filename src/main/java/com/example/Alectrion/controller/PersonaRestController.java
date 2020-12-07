@@ -120,6 +120,18 @@ public class PersonaRestController {
 		return new ResponseEntity<>( HttpStatus.OK );
 	}
 
+	@DeleteMapping(value = { "/cliente/establecimientos/qreserva"})
+	public ResponseEntity<Void> qReserva( @RequestBody ReservePOJO addPOJO ){
+
+		Persona existingUser = userService.findById( addPOJO.getUserID() );
+		Establishment existingEstablishment = establishmentService.findByEstId( addPOJO.getEstID());
+		String hora = addPOJO.getHorario();
+		Reserve reserve = new Reserve( existingUser, existingEstablishment, hora);
+		userService.deleteReserve( reserve );
+
+		return new ResponseEntity<>( HttpStatus.OK );
+	}
+
 	@GetMapping( value = { "/cliente/establecimientos/misfavoritos/{id}"} )
 		public List<Establishment> getFavorites( @PathVariable Integer id){
 		List<Establishment> temp = userService.findFavorites(id);
