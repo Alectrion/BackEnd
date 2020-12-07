@@ -100,7 +100,7 @@ public class PersonaService{
     
     
     public void deleteById(Integer user_id) {
-        establishmentDaoAPI.deleteById_propietario(user_id);
+
         favoriteDaoAPI.deleteByFavoritePK_Persona_Id(user_id);
         reserveDaoAPI.deleteByReservePK_Persona_Id(user_id);
         userRepository.deleteById(user_id);
