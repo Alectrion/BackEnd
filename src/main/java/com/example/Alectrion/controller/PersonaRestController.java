@@ -18,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -139,9 +140,15 @@ public class PersonaRestController {
 	}
 
 	@GetMapping( value = { "/cliente/establecimientos/misreservas/{id}"} )
-	public List<Reserve> getReserves( @PathVariable Integer id){
+	public List<ReservePOJO> getReserves( @PathVariable Integer id){
 		List<Reserve> temp = userService.findReserves(id);
-		return temp;
+		List<ReservePOJO> pojo = new ArrayList<>();
+		for (Reserve r: temp
+			 ) {
+			ReservePOJO a = new ReservePOJO(r.getUser().getId(), r.getEstablishment().getId(), r.getHora());
+			pojo.add(a);
+		}
+		return pojo;
 	}
 
 	@Transactional

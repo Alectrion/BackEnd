@@ -6,6 +6,14 @@ public class ReservePOJO {
     private int estID;
     private String horario;
 
+    public ReservePOJO(int userID, int estID, String horario) {
+        this.userID = userID;
+        this.estID = estID;
+        this.horario = horario;
+    }
+
+    public ReservePOJO(){}
+
     public int getUserID() {
         return userID;
     }
