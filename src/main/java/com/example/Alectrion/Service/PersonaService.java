@@ -75,6 +75,8 @@ public class PersonaService{
 
     public void deleteFavorite(Favorites favorite){ this.favoriteDaoAPI.delete(favorite);}
     
+    public void deleteReserve(Reserve reserve){ this.reserveDaoAPI.delete(reserve);}
+    
     public Persona getPersona( ){
     	String username = SecurityContextHolder.getContext( ).getAuthentication( ).getName( );
     	return userRepository.findByUsername(username);
