@@ -69,11 +69,11 @@ public class Reserve implements Serializable {
 
 
 
-        @ManyToOne
+        @ManyToOne( cascade = CascadeType.REMOVE)
         @JoinColumn( name = "user_id" )
         private Persona persona;
 
-        @ManyToOne
+        @ManyToOne( cascade = CascadeType.REMOVE)
         @JoinColumn( name = "est_id")
         private Establishment establishment;
 

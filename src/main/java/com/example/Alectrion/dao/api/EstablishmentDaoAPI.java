@@ -10,4 +10,5 @@ public interface EstablishmentDaoAPI extends JpaRepository<Establishment, Intege
 
     Establishment findByEstName(String estName);
     Establishment findById(int id);
+
 }

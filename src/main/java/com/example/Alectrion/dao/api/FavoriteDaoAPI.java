@@ -10,5 +10,7 @@ import java.util.List;
 public interface FavoriteDaoAPI extends JpaRepository<Favorites, Favorites.FavoritePK> {
 
 
-    List<Favorites> findByFavoritePK_Persona_Id(int id);
+    List<Favorites> findByFavoritePK_Persona_Id(Integer id);
+    void deleteByFavoritePK_Persona_Id(Integer user_id);
+    void deleteByFavoritePK_Establishment_Id(Integer est_id);
 }

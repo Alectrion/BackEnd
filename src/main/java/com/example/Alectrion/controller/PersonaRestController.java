@@ -17,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.List;
 
@@ -74,7 +75,7 @@ public class PersonaRestController {
 		return new ResponseEntity<>( HttpStatus.CREATED );
 	}
 
-	@PutMapping( value = { "/usuario/editar/{Id}" }, consumes = MediaType.APPLICATION_JSON_VALUE )
+	@PutMapping( value = { "/usuario/editar/{Id}" })
 	public ResponseEntity<Void> updateUser(@PathVariable Integer Id,@RequestBody RegisterUserPOJO userPOJO ){
 		Persona existingUser = userService.findByUsername( userPOJO.getUsername( ) );
 
@@ -108,7 +109,7 @@ public class PersonaRestController {
 		return new ResponseEntity<>( HttpStatus.OK );
 	}
 
-	@DeleteMapping(value = { "/cliente/establecimientos/favoritos"})
+	@DeleteMapping(value = { "/cliente/establecimientos/qfavoritos"})
 	public ResponseEntity<Void> qFavorite( @RequestBody AddFavoritePOJO addPOJO ){
 
 		Persona existingUser = userService.findById( addPOJO.getUserID() );
@@ -125,7 +126,14 @@ public class PersonaRestController {
 		return temp;
 	}
 
-	@DeleteMapping( value = { "/usuario/delete/{id}" }, consumes = MediaType.APPLICATION_JSON_VALUE )
+	@GetMapping( value = { "/cliente/establecimientos/misreservas/{id}"} )
+	public List<Reserve> getReserves( @PathVariable Integer id){
+		List<Reserve> temp = userService.findReserves(id);
+		return temp;
+	}
+
+	@Transactional
+	@DeleteMapping( value = { "/usuario/delete/{id}" } )
 	public ResponseEntity<Void> deleteEstablishment( @PathVariable Integer id){
 		userService.deleteById(id);
 		return ResponseEntity.ok(null);
