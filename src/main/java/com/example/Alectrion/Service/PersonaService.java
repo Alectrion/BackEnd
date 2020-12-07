@@ -54,6 +54,8 @@ public class PersonaService{
         return temp;
     }
 
+    public List<Reserve> findReserves(int user_id){ return reserveDaoAPI.findByReservePK_Persona_Id(user_id);}
+
     public void saveReserve(Reserve reserve){ reserveDaoAPI.save( reserve );}
 
     public void saveFavorite( Favorites favorite){ this.favoriteDaoAPI.save( favorite ); }
@@ -92,11 +94,15 @@ public class PersonaService{
     public List<Establishment> getEstablishments(){
         String username = SecurityContextHolder.getContext( ).getAuthentication( ).getName( );
         Persona persona = userRepository.findByUsername(username);
+
         return persona.getEstablishments();
     }
     
     
     public void deleteById(Integer user_id) {
+        establishmentDaoAPI.deleteById_propietario(user_id);
+        favoriteDaoAPI.deleteByFavoritePK_Persona_Id(user_id);
+        reserveDaoAPI.deleteByReservePK_Persona_Id(user_id);
         userRepository.deleteById(user_id);
     }
 }

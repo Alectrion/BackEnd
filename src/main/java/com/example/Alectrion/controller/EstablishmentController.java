@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.transaction.Transactional;
+
 @RestController
 public class EstablishmentController {
 
@@ -56,7 +58,7 @@ public class EstablishmentController {
 
         return new ResponseEntity<>( HttpStatus.CREATED );
     }
-    
+    @Transactional
     @DeleteMapping( value = { "/propietario/establecimiento/{esta_Id}" }, consumes = MediaType.APPLICATION_JSON_VALUE )
 	public ResponseEntity<Void> deleteEstablishment( @PathVariable Integer esta_Id ){
 		establishmentService.deleteById(esta_Id);

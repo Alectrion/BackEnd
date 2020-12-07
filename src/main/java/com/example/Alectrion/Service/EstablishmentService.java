@@ -1,6 +1,7 @@
 package com.example.Alectrion.Service;
 
 import com.example.Alectrion.dao.api.EstablishmentDaoAPI;
+import com.example.Alectrion.dao.api.FavoriteDaoAPI;
 import com.example.Alectrion.dao.api.ReserveDaoAPI;
 import com.example.Alectrion.model.Establishment;
 import com.example.Alectrion.model.Reserve;
@@ -14,11 +15,14 @@ import org.springframework.stereotype.Service;
 public class EstablishmentService {
 
     private final EstablishmentDaoAPI estRepository;
+    private final FavoriteDaoAPI favoriteDaoAPI;
     private final ReserveDaoAPI reserveDaoAPI;
 
-    public EstablishmentService(EstablishmentDaoAPI estRepository, ReserveDaoAPI reserveDaoAPI){
+    public EstablishmentService(EstablishmentDaoAPI estRepository, ReserveDaoAPI reserveDaoAPI,
+                                FavoriteDaoAPI favoriteDaoAPI){
         this.estRepository = estRepository;
         this.reserveDaoAPI = reserveDaoAPI;
+        this.favoriteDaoAPI = favoriteDaoAPI;
     }
 
     public  Establishment findByEstName(String estName ){
@@ -56,6 +60,8 @@ public class EstablishmentService {
     }
     
     public void deleteById(Integer est_id) {
+        favoriteDaoAPI.deleteByFavoritePK_Establishment_Id(est_id);
+        reserveDaoAPI.deleteByReservePK_Establishment_Id(est_id);
         estRepository.deleteById(est_id);
     }
     
