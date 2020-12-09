@@ -25,6 +25,11 @@ public class Establishment {
     private String muro;
     @Column(name = "tipo")
     private String tipoEstablecimiento;
+    @Column(name = "aforo")
+    private int aforo = 0;
+
+
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -106,5 +111,13 @@ public Establishment(Propietario propietario){
 	public void setMuro(String muro) {
 		this.muro = muro;
 	}
+
+    public int getAforo() {
+        return aforo;
+    }
+
+    public void setAforo(int aforo) {
+        this.aforo = aforo;
+    }
     
 }

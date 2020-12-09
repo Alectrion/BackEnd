@@ -4,6 +4,7 @@ import com.example.Alectrion.Service.EstablishmentService;
 import com.example.Alectrion.Service.PersonaService;
 import com.example.Alectrion.model.Establishment;
 import com.example.Alectrion.model.Persona;
+import com.example.Alectrion.pojo.AforoPOJO;
 import com.example.Alectrion.pojo.NumberReservesPOJO;
 import com.example.Alectrion.pojo.RegistrerEstablishmentPOJO;
 import java.util.List;
@@ -75,8 +76,14 @@ public class EstablishmentController {
         return establishmentService.getScheduleCapacity(numberReservesPOJO.getEstID(), numberReservesPOJO.getHorario());
     }
 
+    @PutMapping( value = { "/establecimiento/eaforo"})
+    public ResponseEntity<Void> updateEstablishment(@RequestBody AforoPOJO aforoPOJO){
 
-
+        Establishment existingEstablishment = establishmentService.findByEstId(aforoPOJO.getEstID());
+        existingEstablishment.setAforo(aforoPOJO.getAforo());
+        establishmentService.save(existingEstablishment);
+        return new ResponseEntity<>( HttpStatus.OK );
+    }
 
     @PutMapping( value = { "/propietario/establecimiento/editar/{Id}" }, consumes = MediaType.APPLICATION_JSON_VALUE )
 	public ResponseEntity<Void> updateEstablishment(@PathVariable Integer Id,@RequestBody RegistrerEstablishmentPOJO estPojo  ){
