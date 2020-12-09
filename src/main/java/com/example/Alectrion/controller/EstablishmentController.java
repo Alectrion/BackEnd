@@ -65,6 +65,12 @@ public class EstablishmentController {
 		establishmentService.deleteById(esta_Id);
 		return ResponseEntity.ok(null);
     }
+
+    @GetMapping(  value = { "/establecimiento/oaforo/{esta_Id}" } )
+            public Integer getAforo(@PathVariable Integer esta_Id){
+                Establishment establishment = establishmentService.findByEstId(esta_Id);
+                return establishment.getAforo();
+            }
     
     @GetMapping( value = { "/Establecimientos" } )
     public List<Establishment> getAll( ){ return establishmentService.getAllEstablishments();
