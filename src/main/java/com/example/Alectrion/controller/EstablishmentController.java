@@ -4,6 +4,7 @@ import com.example.Alectrion.Service.EstablishmentService;
 import com.example.Alectrion.Service.PersonaService;
 import com.example.Alectrion.model.Establishment;
 import com.example.Alectrion.model.Persona;
+import com.example.Alectrion.model.Reserve;
 import com.example.Alectrion.pojo.NumberReservesPOJO;
 import com.example.Alectrion.pojo.RegistrerEstablishmentPOJO;
 import java.util.List;
@@ -79,8 +80,10 @@ public class EstablishmentController {
 
         return establishmentService.getScheduleCapacity(numberReservesPOJO.getEstID(), numberReservesPOJO.getHorario());
     }
-
-
+    
+    @GetMapping( value = { "/ocupaciones" } )
+    public List<Reserve> getAll1( ){ return establishmentService.getAllCapacity();
+    }
 
 
     @PutMapping( value = { "/propietario/establecimiento/editar/{Id}" }, consumes = MediaType.APPLICATION_JSON_VALUE )

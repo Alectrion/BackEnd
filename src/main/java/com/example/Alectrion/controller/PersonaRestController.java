@@ -5,6 +5,7 @@ import com.example.Alectrion.Service.PersonaService;
 import com.example.Alectrion.Service.RoleService;
 import com.example.Alectrion.model.*;
 import com.example.Alectrion.pojo.AddFavoritePOJO;
+import com.example.Alectrion.pojo.DatosPOJO;
 import com.example.Alectrion.pojo.LoginUserPOJO;
 import com.example.Alectrion.pojo.RegisterUserPOJO;
 import com.example.Alectrion.pojo.ReservePOJO;
@@ -18,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -139,9 +141,15 @@ public class PersonaRestController {
 	}
 
 	@GetMapping( value = { "/cliente/establecimientos/misreservas/{id}"} )
-	public List<Reserve> getReserves( @PathVariable Integer id){
+	public List<DatosPOJO> getReserves( @PathVariable Integer id){
 		List<Reserve> temp = userService.findReserves(id);
-		return temp;
+		List<DatosPOJO> pojo = new ArrayList<>();
+		for (Reserve r: temp
+			 ) {
+			DatosPOJO a = new DatosPOJO(r.getUser().getId(), r.getEstablishment().getId(), r.getEstablishment().getEstName(), r.getEstablishment().getDir(), r.getEstablishment().getTipoEstablecimiento(), r.getHora());
+			pojo.add(a);
+		}
+		return pojo;
 	}
 
 	@Transactional

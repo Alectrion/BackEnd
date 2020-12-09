@@ -43,8 +43,10 @@ public class EstablishmentService {
         int capacity = reserves.size();
         return capacity;
     }
-
-
+    public List<Reserve> getAllCapacity(){
+    	return reserveDaoAPI.findAll();
+    }
+    
     public boolean isRightEstablishment( RegistrerEstablishmentPOJO est ){
         boolean correctness = est.getEstName() != null && est.getDir() != null && est.getTel() != null;
 

@@ -23,25 +23,25 @@ public class Reserve implements Serializable {
         reservePK = new ReservePK(cliente, favorito, hora);
     }
 
-    Persona getUser( ){
+    public Persona getUser( ){
         return reservePK.getPersona( );
     }
 
-    void setUser( Persona persona ){
+    public void setUser( Persona persona ){
         reservePK.setPersona( persona );
     }
 
-    Establishment getEstablishment( ){
+    public Establishment getEstablishment( ){
         return reservePK.getEstablishment();
     }
 
-    void setEstablishment( Establishment establishment ){
+    public void setEstablishment( Establishment establishment ){
         reservePK.setEstablishment( establishment );
     }
 
-    String getHora(){ return reservePK.getHora();}
+    public String getHora(){ return reservePK.getHora();}
 
-    void setHora(String hora){ reservePK.setHora(hora); }
+    public void setHora(String hora){ reservePK.setHora(hora); }
 
 
     @Override
