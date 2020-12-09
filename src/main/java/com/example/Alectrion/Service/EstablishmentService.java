@@ -64,5 +64,19 @@ public class EstablishmentService {
         reserveDaoAPI.deleteByReservePK_Establishment_Id(est_id);
         estRepository.deleteById(est_id);
     }
-    
+
+    public Integer[] getHorariosGrafica(Integer est_id) {
+        Integer[] nHorarios = new Integer[15];
+        String[] horarios = {"7am - 8am",
+                "8am - 9am", "9am - 10am", "10am - 11am",
+                "11am - 12pm", "12pm - 1pm", "1pm - 2pm",
+                "2pm - 3pm", "3pm - 4pm", "4pm - 5pm",
+                "5pm - 6pm", "6pm - 7pm", "7pm - 8pm",
+                "8pm - 9pm", "9pm - 10pm"};
+        for(int i = 0; i < horarios.length; i++){
+            List<Reserve> reserves = reserveDaoAPI.findByReservePK_Establishment_IdAndReservePK_Hora(est_id, horarios[i]);
+            nHorarios[i] = reserves.size();
+        }
+        return nHorarios;
+    }
 }

@@ -76,6 +76,13 @@ public class EstablishmentController {
     public List<Establishment> getAll( ){ return establishmentService.getAllEstablishments();
     }
 
+    @GetMapping(  value = { "/establecimiento/gaforo/{esta_Id}" } )
+    public Integer[] getGrafica(@PathVariable Integer esta_Id){
+
+        return establishmentService.getHorariosGrafica(esta_Id);
+    }
+
+
     @PostMapping( value = { "/establecimientos/ocupacion"})
     public int getOcupationEstablishment(@RequestBody NumberReservesPOJO numberReservesPOJO){
 
